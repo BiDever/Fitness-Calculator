@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Gaining & Bulking Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="description" content="Designed specifically for hardgainers. Calculate your aggressive mass gaining goals using our Bulking Calculator to put on heavy raw physical mass.">
+    <meta name="keywords" content="bulking calculator, mass gainer calculator, hardgainer caloric intake, weight gain macro calculator, dirty bulk vs clean bulk calculator">
+    <meta name="author" content="Biniam">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Mass Gaining & Bulking Calculator | Hardgainer Targets">
+    <meta property="og:description" content="Forced muscle growth and raw body mass changes. Calculate your complete +500 high calorie bulk targets and macro ratios instantly.">
+    <meta property="og:image" content="https://yourdomain.netlify.app/preview.jpg"> 
+    <meta property="og:url" content="https://netlify.app">
+    <meta property="og:type" content="website">
+
+    
+    
+</head>
+<body>
+
+    <header>
+        <h1>🍽️ Mass Gaining & Bulking Calculator</h1>
+        <a href="index.html" class="navigation-back-link">← Return to Homepage</a>
+    </header>
+
+    <main class="container">
+        <!-- AD SLOT
+        <div class="ad-banner">✨ High Paying Contextual Advertisement</div>
+        -->
+
+        <section class="calculator-form-container">
+            <form id="bulkingForm">
+                <label for="gender">Biological Gender:</label>
+                <select id="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="weight">Current Weight (kg):</label>
+                <input type="number" id="weight" required min="30" max="250">
+
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" required min="100" max="250">
+
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" required min="12" max="100">
+
+                <button type="submit">Calculate Bulking Strategy</button>
+            </form>
+
+            <div id="outputDisplay" class="output-display-box" style="display: none;"></div>
+        </section>
+        
+        <!-- TARGETED AFFILIATE CONVERSION LAYER
+        <div class="affiliate-conversion-zone">
+            <h3>🛒 Top Supplement Picks for Hardgainers:</h3>
+            <p>Struggling to hit your daily caloric goals? Try using the <a href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow">Best High-Calorie Mass Gainer Protein Powder on Amazon</a> to add dense nutrients effortlessly.</p>
+        </div>
+        -->
+    </main>
+
+    <script>
+        document.getElementById('bulkingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+
+            let bmr = (gender === "male") ? 
+                (10 * weight) + (6.25 * height) - (5 * age) + 5 : 
+                (10 * weight) + (6.25 * height) - (5 * age) - 161;
+
+            const maintenance = bmr * 1.375;
+            // Aggressive bulking surplus of 500 calories
+            const bulkingCalories = Math.round(maintenance + 500);
+
+            // Bulking Macro Distribution
+            const proteinGrams = Math.round(weight * 2.0); 
+            const proteinCalories = proteinGrams * 4;
+            const fatCalories = bulkingCalories * 0.25; 
+            const fatGrams = Math.round(fatCalories / 9);
+            const carbCalories = bulkingCalories - (proteinCalories + fatCalories);
+            const carbGrams = Math.round(carbCalories / 4);
+
+            const outputBox = document.getElementById('outputDisplay');
+            outputBox.innerHTML = `
+                <p>Your target aggressive bulking intake is: <strong style="color: #e74c3c;">${bulkingCalories} Calories</strong> per day.</p>
+                <hr style="border: 0; height: 1px; background: #c7ecee; margin: 15px 0;">
+                <p style="font-size: 16px; margin: 5px 0;">🍗 <strong>Protein Target:</strong> ${proteinGrams}g</p>
+                <p style="font-size: 16px; margin: 5px 0;">🍚 <strong>Carbohydrates Target:</strong> ${carbGrams}g</p>
+                <p style="font-size: 16px; margin: 5px 0;">🥑 <strong>Fats Target:</strong> ${fatGrams}g</p>
+            `;
+            outputBox.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power & Strength Fueling Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+    <meta name="description" content="Fuel your powerlifting and strength training cycles. Calculate the precise calorie and high-carbohydrate macro setup required for explosive performance and joint recovery.">
+    <meta name="keywords" content="strength calculator, powerlifting macro calculator, weightlifting fueling calculator, strength training nutrition, performance calorie calculator">
+    <meta name="author" content="Biniam">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Power & Strength Fueling Calculator | Performance Recovery">
+    <meta property="og:description" content="Smashed your personal records. Calculate your maintenance targets buffer with carbohydrate optimization to restock muscle glycogen for heavy lifting.">
+    <meta property="og:image" content="https://yourdomain.netlify.app/preview.jpg"> 
+    <meta property="og:url" content="https://netlify.app">
+    <meta property="og:type" content="website">
+
+    
+
+</head>
+<body>
+
+    <header>
+        <h1>🏋️ Power & Strength Fueling Calculator</h1>
+        <a href="index.html" class="navigation-back-link">← Return to Homepage</a>
+    </header>
+
+    <main class="container">
+        <!-- AD SLOT
+        <div class="ad-banner">✨ High Paying Contextual Advertisement</div>
+        -->
+
+        <section class="calculator-form-container">
+            <form id="strengthForm">
+                <label for="gender">Biological Gender:</label>
+                <select id="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="weight">Current Weight (kg):</label>
+                <input type="number" id="weight" required min="30" max="250">
+
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" required min="100" max="250">
+
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" required min="12" max="100">
+
+                <button type="submit">Calculate Performance Fuel</button>
+            </form>
+
+            <div id="outputDisplay" class="output-display-box" style="display: none;"></div>
+        </section>
+        
+        <!-- TARGETED AFFILIATE CONVERSION LAYER
+        <div class="affiliate-conversion-zone">
+            <h3>🛒 Top Rated Performance Gear:</h3>
+            <p>Protect your spine and smash your PRs using the <a href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow">Best 10mm Lever Lifting Belt on Amazon</a> approved for competitive powerlifting.</p>
+        </div>
+        -->
+    </main>
+
+    <script>
+        document.getElementById('strengthForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+
+            let bmr = (gender === "male") ? 
+                (10 * weight) + (6.25 * height) - (5 * age) + 5 : 
+                (10 * weight) + (6.25 * height) - (5 * age) - 161;
+
+            const maintenance = bmr * 1.375;
+            // Performance fueling target (maintenance + 100 cal buffer)
+            const strengthCalories = Math.round(maintenance + 100);
+
+            // Strength Distribution: Higher carbs to support explosive output
+            const proteinGrams = Math.round(weight * 2.0); 
+            const proteinCalories = proteinGrams * 4;
+            const fatCalories = strengthCalories * 0.30; // 30% healthy fats for joint recovery
+            const fatGrams = Math.round(fatCalories / 9);
+            const carbCalories = strengthCalories - (proteinCalories + fatCalories);
+            const carbGrams = Math.round(carbCalories / 4);
+
+            const outputBox = document.getElementById('outputDisplay');
+            outputBox.innerHTML = `
+                <p>Your target intake for optimal strength and lifting recovery is: <strong>${strengthCalories} Calories</strong> per day.</p>
+                <hr style="border: 0; height: 1px; background: #c7ecee; margin: 15px 0;">
+                <p style="font-size: 16px; margin: 5px 0;">🍗 <strong>Protein:</strong> ${proteinGrams}g (For tissue repair)</p>
+                <p style="font-size: 16px; margin: 5px 0;">🍚 <strong>Carbohydrates:</strong> ${carbGrams}g (For heavy explosive fuel)</p>
+                <p style="font-size: 16px; margin: 5px 0;">🥑 <strong>Fats:</strong> ${fatGrams}g (For joint & hormone health)</p>
+            `;
+            outputBox.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lean Muscle Building Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="description" content="Calculate your clean bulking macros with our Lean Muscle Building Calculator. Find the exact balance of protein, carbs, and fats for optimal hypertrophy.">
+    <meta name="keywords" content="muscle building calculator, muscle gain calculator, lean bulk macros, hypertrophy calorie calculator, lean bulking calculator, protein intake calculator">
+    <meta name="author" content="Biniam">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Lean Muscle Building Calculator | Hypertrophy Macro Split">
+    <meta property="og:description" content="Optimize your nutrition for muscle synthesis. Calculate your mild clean bulking caloric surplus and muscle-building macros instantly.">
+    <meta property="og:image" content="https://yourdomain.netlify.app/preview.jpg"> 
+    <meta property="og:url" content="https://netlify.app">
+    <meta property="og:type" content="website">
+
+    
+    
+</head>
+<body>
+
+    <header>
+        <h1>💪 Lean Muscle Building Calculator</h1>
+        <a href="index.html" class="navigation-back-link">← Return to Homepage</a>
+    </header>
+
+    <main class="container">
+        <!-- AD SLOT
+        <div class="ad-banner">✨ High Paying Contextual Advertisement</div>
+        -->
+
+        <section class="calculator-form-container">
+            <form id="muscleForm">
+                <label for="gender">Biological Gender:</label>
+                <select id="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="weight">Current Weight (kg):</label>
+                <input type="number" id="weight" required min="30" max="250">
+
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" required min="100" max="250">
+
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" required min="12" max="100">
+
+                <button type="submit">Calculate Muscle Macros</button>
+            </form>
+
+            <div id="outputDisplay" class="output-display-box" style="display: none;"></div>
+        </section>
+        
+        <!-- TARGETED AFFILIATE CONVERSION LAYER
+        <div class="affiliate-conversion-zone">
+            <h3>🛒 Recommended Gym Essentials for Muscle Growth:</h3>
+            <p>Maximize your hypertrophy cycles with the <a href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow">Best High-Quality Creatine Monohydrate on Amazon</a> to rapidly increase muscle volume and endurance.</p>
+        </div>
+        -->
+    </main>
+
+    <script>
+        document.getElementById('muscleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+
+            // Mifflin-St Jeor BMR
+            let bmr = (gender === "male") ? 
+                (10 * weight) + (6.25 * height) - (5 * age) + 5 : 
+                (10 * weight) + (6.25 * height) - (5 * age) - 161;
+
+            const maintenance = bmr * 1.375;
+            // Lean bulk surplus of 250 calories
+            const muscleCalories = Math.round(maintenance + 250);
+
+            // Optimal Muscle Building Macros:
+            // Protein: 2.2g per kg of bodyweight
+            // Fats: 25% of total calorie intake
+            // Carbs: The remaining calories
+            const proteinGrams = Math.round(weight * 2.2);
+            const proteinCalories = proteinGrams * 4;
+            const fatCalories = muscleCalories * 0.25;
+            const fatGrams = Math.round(fatCalories / 9);
+            const carbCalories = muscleCalories - (proteinCalories + fatCalories);
+            const carbGrams = Math.round(carbCalories / 4);
+
+            const outputBox = document.getElementById('outputDisplay');
+            outputBox.innerHTML = `
+                <p>Your target intake for lean muscle growth is: <strong>${muscleCalories} Calories</strong> per day.</p>
+                <hr style="border: 0; height: 1px; background: #c7ecee; margin: 15px 0;">
+                <p style="font-size: 16px; margin: 5px 0;">🍗 <strong>Protein:</strong> ${proteinGrams}g</p>
+                <p style="font-size: 16px; margin: 5px 0;">🍚 <strong>Carbohydrates:</strong> ${carbGrams}g</p>
+                <p style="font-size: 16px; margin: 5px 0;">🥑 <strong>Fats:</strong> ${fatGrams}g</p>
+            `;
+            outputBox.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

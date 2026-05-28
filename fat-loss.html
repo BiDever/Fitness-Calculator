@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Targeted Fat Loss Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+    <meta name="description" content="Calculate your optimal caloric deficit with our free Fat Loss Calculator. Get personalized daily targets to shred body fat while preserving lean muscle.">
+    <meta name="keywords" content="fat loss calculator, weight loss calculator, calorie deficit calculator, macro calculator fat loss, how to lose weight, fat burn macros">
+    <meta name="author" content="Biniam">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Targeted Fat Loss Calculator | Free Calorie Deficit Tool">
+    <meta property="og:description" content="Determine your precise daily calorie intake and macronutrients required to burn body fat safely and efficiently.">
+    <meta property="og:image" content="https://yourdomain.netlify.app/preview.jpg"> 
+    <meta property="og:url" content="https://netlify.app">
+    <meta property="og:type" content="website">
+
+    
+    
+</head>
+<body>
+
+    <header>
+        <h1>🔥 Fat Loss Calculator</h1>
+        <a href="index.html" class="navigation-back-link">← Return to Homepage</a>
+    </header>
+
+    <main class="container">
+        <!-- AD SLOT
+        <div class="ad-banner">✨ High Paying Contextual Advertisement</div>
+        -->
+        
+        <section class="calculator-form-container">
+            <form id="calcForm">
+                <label for="gender">Biological Gender:</label>
+                <select id="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="weight">Current Weight (kg):</label>
+                <input type="number" id="weight" required min="30" max="250">
+
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" required min="100" max="250">
+
+                <label for="age">Age (years):</label>
+                <input type="number" id="age" required min="12" max="100">
+
+                <button type="submit">Calculate Targets</button>
+            </form>
+
+            <!-- Target container for JavaScript output -->
+            <div id="outputDisplay" class="output-display-box" style="display: none;"></div>
+        </section>
+        
+        <!-- TARGETED AFFILIATE CONVERSION LAYER
+        <div class="affiliate-conversion-zone">
+            <h3>🛒 Top Rated Fat Loss Tooling:</h3>
+            <p>Accelerate your results using the <a href="YOUR_AMAZON_AFFILIATE_LINK_HERE" target="_blank" rel="nofollow">Best Premium Whey Isolate Protein on Amazon</a> to preserve muscle structure while trimming fat tissue.</p>
+        </div>
+        -->
+    </main>
+
+    <script>
+        document.getElementById('calcForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevents page reload
+
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+
+            // Mifflin-St Jeor Formula for BMR
+            let bmr = 0;
+            if (gender === "male") {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            // TDEE Calculation (Moderate active multiplier: 1.375)
+            const maintenance = bmr * 1.375;
+
+            // Calculate a safe 500-calorie deficit for Fat Loss
+            const fatLossCalories = Math.round(maintenance - 500);
+
+            // Print output directly onto the DOM
+            const outputBox = document.getElementById('outputDisplay');
+            outputBox.innerHTML = `Your recommended daily intake for targeted fat loss is: <strong>${fatLossCalories} Calories</strong> per day.`;
+            outputBox.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
